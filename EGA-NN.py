@@ -47,6 +47,7 @@ def mutation(I_double, n, len_v, n_var, B2M):
         p1 = int(np.random.random(1) * int(n/2))
         p2 = int(np.random.random(1) * (len_v*n_vars))
         aff_var = int(p2/len_v)
+
         aff_alle = int(p2%len_v)
         tmp = list(I_tmp[p1][aff_var])
         if(I_tmp[p1][aff_var][aff_alle:aff_alle+1] == '1'):
