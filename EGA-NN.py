@@ -1,6 +1,6 @@
 import numpy as np
 import functools
-import Fitness-NN as fnn
+import Fitness_NN as fnn
 
 
 def makeGen(l_gen):
@@ -58,12 +58,12 @@ def mutation(I_double, n, len_v, n_var, B2M):
 
 ### Variables for flexibility of the algorithm
 # number of variables for one solution
-n_vars = 5
+n_vars = 42
 # lenght of bits for each variable
-len_v = 32
+len_v = 24
 ### Variables what EGA needs
 # Number of generations
-G = 1000
+G = 200
 # Number of individuals
 n = 50
 # Length of chromosome
@@ -103,7 +103,7 @@ for gen in range(G):
     count = 0
     for i in range(fitness_double.shape[1]):
         fitness_double[0][i] = count
-        #fitness_double[1][i] = fnn.fitness(I_double[i][0], I_double[i][1])
+        fitness_double[1][i] = fnn.fitness(I_double[i][0])
         count += 1
     # Order by fitness
     fitness_double = fitness_double[:, fitness_double[1].argsort()]
@@ -117,6 +117,5 @@ for gen in range(G):
         count += 1
     print("Generation {}, MSE= {}".format(gen+1, fitness_double[1][0]))
 print("Aproaches: ")
-#print("x= ", fle.bin2float(I[0][0]))
-#print("y= ", fle.bin2float(I[0][1]))
+print("x= ", fnn.fitness(I[0][0]))
 
