@@ -47,7 +47,6 @@ def mutation(I_double, n, len_v, n_var, B2M):
         p1 = int(np.random.random(1) * int(n/2))
         p2 = int(np.random.random(1) * (len_v*n_vars))
         aff_var = int(p2/len_v)
-
         aff_alle = int(p2%len_v)
         tmp = list(I_tmp[p1][aff_var])
         if(I_tmp[p1][aff_var][aff_alle:aff_alle+1] == '1'):
@@ -64,9 +63,9 @@ n_vars = 42
 len_v = 24
 ### Variables what EGA needs
 # Number of generations
-G = 200
+G = 20
 # Number of individuals
-n = 50
+n = 3
 # Length of chromosome
 L = n_vars * len_v
 # Population
@@ -104,11 +103,15 @@ for gen in range(G):
     count = 0
     for i in range(fitness_double.shape[1]):
         fitness_double[0][i] = count
-        fitness_double[1][i] = fnn.fitness(I_double[i][0])
+        fitness_double[1][i] = fnn.fitness(I_double[i])
         count += 1
     # Order by fitness
     fitness_double = fitness_double[:, fitness_double[1].argsort()]
-
+    print(fitness_double)
+    fitness_double = list(fitness_double)
+    fitness_double = fitness_double[::-1]
+    fitness_double = np.array(fitness_double)
+    print(fitness_double)
     # Apply Elitism
     ind_eli = fitness_double[0][0:n]
     ind_eli = np.array(ind_eli, dtype='int32')
@@ -118,5 +121,8 @@ for gen in range(G):
         count += 1
     print("Generation {}, MSE= {}".format(gen+1, fitness_double[1][0]))
 print("Aproaches: ")
-print("x= ", fnn.fitness(I[0][0]))
+print('Pesos: ')
+for i in range(len(I[0])):
+    print(fnn.bin2float(I[i], 1))
+print("Error promedio= ", fnn.fitness(I[0]))
 

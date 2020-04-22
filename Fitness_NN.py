@@ -40,7 +40,7 @@ def eucli_dins(p1, p2):
 
 def fitness(weights):
     layer = np.ndarray(shape=(1, 3), dtype= np.float)
-    dec_vec = list(weights)
+    dec_vec = []
     vec_out = []
     ran_sta = np.random.randint(0, 10000)
     X_train_tmp = pd.DataFrame.sample(X_train, n=X_train.shape[0], random_state=ran_sta)
@@ -65,12 +65,29 @@ def fitness(weights):
         x0 = expit(x0)
         x1 = expit(x1)
         x2 = expit(x2)
-        out = [x0, x1, x2]
+        out = list(softmax([x0, x1, x2]))
         vec_out.append(out.index(max(out))+1)
     acc = 0
     for sol in range(len(y_train)):
         if y_train_tmp[sol] == vec_out[sol]:
             acc += 1
     return float(acc)/float(len(y_train))
+
+
+# def evaluation_test(weights):
+#     dec_vec = []
+#     for i in weights:
+#         dec_vec.append(bin2float(i, 1))
+#     for row in range(X_test.shape[0]):
+#         cont_w = 0
+#         x0 = dec_vec[cont_w]
+#         cont_w += 1
+#         x1 = dec_vec[cont_w]
+#         cont_w += 1
+#         x2 = dec_vec[cont_w]
+#         cont_w += 1
+#         for col in range(X_test.shape[1]):
+
+
 
 
