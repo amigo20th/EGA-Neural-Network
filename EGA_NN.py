@@ -63,9 +63,9 @@ n_vars = 42
 len_v = 24
 ### Variables what EGA needs
 # Number of generations
-G = 20
+G = 200
 # Number of individuals
-n = 3
+n = 50
 # Length of chromosome
 L = n_vars * len_v
 # Population
@@ -73,7 +73,7 @@ I = np.ndarray(shape=(n, n_vars), dtype=('U', len_v))
 # Crossing probability
 Pc = 0.9
 # Mutation probability
-Pm = 0.05
+Pm = 0.0
 # list of fitness
 fitness = np.ndarray(shape= (2, n), dtype=float)
 # Expected number of mutations for each generation
@@ -107,13 +107,10 @@ for gen in range(G):
         count += 1
     # Order by fitness
     fitness_double = fitness_double[:, fitness_double[1].argsort()]
-    print(fitness_double)
-    fitness_double = list(fitness_double)
-    fitness_double = fitness_double[::-1]
-    fitness_double = np.array(fitness_double)
-    print(fitness_double)
+
     # Apply Elitism
-    ind_eli = fitness_double[0][0:n]
+    ind_eli = list(fitness_double[0][n:])
+    ind_eli = ind_eli[::-1]
     ind_eli = np.array(ind_eli, dtype='int32')
     count = 0
     for i in ind_eli:
@@ -123,6 +120,6 @@ for gen in range(G):
 print("Aproaches: ")
 print('Pesos: ')
 for i in range(len(I[0])):
-    print(fnn.bin2float(I[i], 1))
+    print(fnn.bin2float(I[0][i], 1))
 print("Error promedio= ", fnn.fitness(I[0]))
 
