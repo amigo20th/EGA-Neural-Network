@@ -104,8 +104,6 @@ def evaluation_test(weights):
     for sol in range(len(y_test)):
         if y_test_tmp[sol] == vec_out[sol]:
             acc += 1
-    print(X_test['Alcohol'])
-    print(y_test)
     return float(acc)/float(len(y_test))
 
 
