@@ -63,7 +63,7 @@ n_vars = 42
 len_v = 24
 ### Variables what EGA needs
 # Number of generations
-G = 200
+G = 100
 # Number of individuals
 n = 50
 # Length of chromosome
@@ -73,7 +73,7 @@ I = np.ndarray(shape=(n, n_vars), dtype=('U', len_v))
 # Crossing probability
 Pc = 0.9
 # Mutation probability
-Pm = 0.0
+Pm = 0.05
 # list of fitness
 fitness = np.ndarray(shape= (2, n), dtype=float)
 # Expected number of mutations for each generation
@@ -116,11 +116,14 @@ for gen in range(G):
     for i in ind_eli:
         I[count] = I_double[i]
         count += 1
-    print("Generation {}, MSE= {}".format(gen+1, fitness_double[1][0]))
-print("Aproaches: ")
-print('Pesos: ')
-for i in range(len(I[0])):
-    print(fnn.bin2float(I[0][i], 1))
+    print("Generation {}, Acc= {}".format(gen+1, fitness_double[1][2*n-1]))
+print()
+# print("Aproaches: ")
+# print('Pesos: ')
+# for i in range(len(I[0])):
+#     print(fnn.bin2float(I[0][i], 1))
 
-print("Error promedio= ", fnn.fitness(I[0]))
+print("Accuracy Train= ", fnn.fitness(I[0]))
+print("Accuracy Test= ", fnn.evaluation_test(I[0]))
+
 

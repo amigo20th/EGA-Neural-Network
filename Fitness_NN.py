@@ -71,24 +71,41 @@ def fitness(weights):
     for sol in range(len(y_train)):
         if y_train_tmp[sol] == vec_out[sol]:
             acc += 1
-
     return float(acc)/float(len(y_train))
 
 
-# def evaluation_test(weights):
-#     dec_vec = []
-#     for i in weights:
-#         dec_vec.append(bin2float(i, 1))
-#     for row in range(X_test.shape[0]):
-#         cont_w = 0
-#         x0 = dec_vec[cont_w]
-#         cont_w += 1
-#         x1 = dec_vec[cont_w]
-#         cont_w += 1
-#         x2 = dec_vec[cont_w]
-#         cont_w += 1
-#         for col in range(X_test.shape[1]):
-
-
+def evaluation_test(weights):
+    dec_vec = []
+    vec_out = []
+    y_test_tmp = list(y_test)
+    for i in weights:
+        dec_vec.append(bin2float(i, 1))
+    for row in range(X_test.shape[0]):
+        cont_w = 0
+        x0 = dec_vec[cont_w]
+        cont_w += 1
+        x1 = dec_vec[cont_w]
+        cont_w += 1
+        x2 = dec_vec[cont_w]
+        cont_w += 1
+        for col in range(X_test.shape[1]):
+            x0 += dec_vec[cont_w] * X_test.iloc[row, col]
+            cont_w += 1
+            x1 += dec_vec[cont_w] * X_test.iloc[row, col]
+            cont_w += 1
+            x2 += dec_vec[cont_w] * X_test.iloc[row, col]
+            cont_w += 1
+        x0 = expit(x0)
+        x1 = expit(x1)
+        x2 = expit(x2)
+        out = list(softmax([x0, x1, x2]))
+        vec_out.append(out.index(max(out))+1)
+    acc = 0
+    for sol in range(len(y_test)):
+        if y_test_tmp[sol] == vec_out[sol]:
+            acc += 1
+    print(X_test['Alcohol'])
+    print(y_test)
+    return float(acc)/float(len(y_test))
 
 
