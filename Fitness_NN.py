@@ -71,6 +71,7 @@ def fitness(weights):
     for sol in range(len(y_train)):
         if y_train_tmp[sol] == vec_out[sol]:
             acc += 1
+
     return float(acc)/float(len(y_train))
 
 

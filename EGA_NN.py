@@ -121,5 +121,6 @@ print("Aproaches: ")
 print('Pesos: ')
 for i in range(len(I[0])):
     print(fnn.bin2float(I[0][i], 1))
+
 print("Error promedio= ", fnn.fitness(I[0]))
 
